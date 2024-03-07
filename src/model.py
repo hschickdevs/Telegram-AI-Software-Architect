@@ -5,6 +5,7 @@ from openai import OpenAI
 from os.path import join, dirname, isdir
 from os import getenv, getcwd, mkdir
 from dotenv import load_dotenv, find_dotenv
+import json
 
 from .logger import logger
 
@@ -59,12 +60,17 @@ class CodebaseModel(OpenAI):
             dict: Returns the dict object from the self._call_api return
         """
         # Format the translate.txt prompt file to construct the detailed prompt for the translation task
-        with open(join(dirname(__file__), 'resources', 'prompt.txt'), 'r') as f:
+        with open(join(dirname(__file__), 'resources', 'prompts', 'prompt.txt'), 'r') as f:
             prompt = f.read().format(context=context)
+            
+        print("PROMPT:", prompt)
             
         response = self._call_api(prompt)
         
         # Process response and return the JSON object
         
+        
+        print(f"\nRESPONSE:")
+        print(json.dumps(response, indent=2))
 
-        return 
+        return response

@@ -1,5 +1,5 @@
 from .telegram import CodebaseArchitectBot
-from .utils import handle_env, get_commands
+from .utils import handle_env, get_commands, clean_temp_dir
 from .logger import logger
 from .model import CodebaseModel
 
@@ -18,6 +18,8 @@ def start_bot(bot_instance: CodebaseArchitectBot):
 
 if __name__ == "__main__":
     handle_env()
+    
+    clean_temp_dir()
     
     model = CodebaseModel(getenv("OPENAI_TOKEN"), model=getenv("MODEL"))
     bot = CodebaseArchitectBot(getenv("BOT_TOKEN"), model=model)

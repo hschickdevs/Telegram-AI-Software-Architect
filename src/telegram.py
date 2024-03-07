@@ -1,9 +1,10 @@
 from telebot import TeleBot, types
 
-from .utils import get_command_template
+from .utils import get_command_template, get_temp_dir
 from .model import CodebaseModel
+from .builder import CodebaseBuilder
 
-import json
+import os
 
 
 class CodebaseArchitectBot(TeleBot):
@@ -33,9 +34,17 @@ class CodebaseArchitectBot(TeleBot):
                 self.reply_to(message, "Please provide the context of the codebase you want to generate by sending `/generate <context>`", parse_mode='Markdown')
                 return
             
-            if len(context) > 0:
+            if len(context.strip()) > 0:
                 self.reply_to(message, f"Generating codebase with context: `{context}`", parse_mode='Markdown')
-                r = self.model.generate_codebase(context)
-                print(f"\nRESPONSE:")
-                print(json.dumps(r, indent=2))
-                return
+                
+                response = self.model.generate_codebase(context)
+                
+                tmp = get_temp_dir()
+                
+                builder = CodebaseBuilder(project_folder=os.path.join(tmp, response['project']))
+                builder.build_codebase(response)
+                
+                # Send the folder to telegram
+                
+                # Clean up the build
+                

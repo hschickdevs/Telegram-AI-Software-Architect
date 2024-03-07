@@ -9,8 +9,8 @@ An example of how the JSON object should look is as follows:
   "error": False,
   "commands": [
     "touch main.py && echo 'print(\"Hello, World!\")' >> main.py",
-    "touch requirements.txt && echo 'flask==1.1.2' >> requirements.txt && echo 'python-dotenv==0.15.0' >> requirements.txt",
-    "touch README.md && echo 'To setup the project, run the following commands:' >> README.md && echo 'cd my_project' >> README.md && echo 'pip install -r requirements.txt' >> README.md",
+    "touch requirements.txt && echo "flask==1.1.2\npython-dotenv==0.15.0" > requirements.txt",
+    "touch README.txt && echo "To setup the project, run the following commands:\ncd my_project\npip install -r requirements.txt" > README.txt",
   ]
 }}
 
@@ -23,6 +23,8 @@ If there is any reason that you believe the codebase cannot be generated, you sh
 Additional Conditions:
 1. You only have the capability to generate Python codebases. If the project cannot be built using Python, then you should return an error.
 2. Please do not return the "```json```" characters in your response, just the raw text in JSON format.
+3. If a requirements.txt file is not needed as the software uses built-in libraries, you can exclude it.
+4. Please use .txt extension for README files, not .md.
 
 HERE IS THE CONTEXT:
 {context}

@@ -1,5 +1,5 @@
-from os.path import join, dirname, isdir, abspath
-from os import getenv, getcwd, mkdir
+from os.path import join, dirname, isdir, abspath, exists
+from os import getenv, getcwd, mkdir, listdir, remove
 from dotenv import load_dotenv, find_dotenv
     
 
@@ -52,3 +52,27 @@ def get_commands() -> dict:
             commands[command.strip()] = description.strip()
             
     return commands
+
+
+def get_temp_dir() -> str:
+    """
+    Returns the path to the tmp directory.
+    """
+    tmp_dir = join(getcwd(), 'tmp')
+    if not exists(tmp_dir):
+        mkdir(tmp_dir)
+    return tmp_dir
+
+
+
+def clean_temp_dir() -> str:
+    """
+    Clears the tmp directory.
+    
+    :return: The path to the tmp directory.
+    """
+    tmp_dir = get_temp_dir()
+    for filename in listdir(tmp_dir):
+        remove(join(tmp_dir, filename))
+        
+    return tmp_dir
