@@ -23,7 +23,7 @@ class CodebaseModel(OpenAI):
         self.model = model
     
     
-    def _call_api(self, prompt: str, retries: int = 3) -> dict:
+    def _call_api(self, prompt: str, retries: int = 1) -> dict:
         """
         Handles the call to the OpenAI API ChatCompletions endpoint, and the parsing of the response.
         
@@ -38,6 +38,8 @@ class CodebaseModel(OpenAI):
         try:
             response = self.chat.completions.create(model=self.model,
             messages=[{"role": "user", "content": prompt}])
+            
+            logger.debug(f"API Response: {response}")
                         
             return loads(response.choices[0].message.content.strip())
 

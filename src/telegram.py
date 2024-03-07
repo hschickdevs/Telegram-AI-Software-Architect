@@ -1,6 +1,6 @@
 from telebot import TeleBot, types
 
-from .utils import get_command_template, get_temp_dir
+from .utils import get_command_template, get_temp_dir, count_tokens
 from .model import CodebaseModel
 from .builder import CodebaseBuilder
 
@@ -35,7 +35,8 @@ class CodebaseArchitectBot(TeleBot):
                 return
             
             if len(context.strip()) > 0:
-                self.reply_to(message, f"Generating codebase with context: `{context}`", parse_mode='Markdown')
+                token_count = '{:,}'.format(count_tokens(context, "gpt-4"))
+                self.reply_to(message, f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n_⚙️ Please wait, this may take a while ..._", parse_mode='Markdown')
                 
                 response = self.model.generate_codebase(context)
                 

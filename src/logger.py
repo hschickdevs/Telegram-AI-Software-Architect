@@ -12,12 +12,12 @@ logger.setLevel(logging.DEBUG)
 logfile = get_logfile()
 file_handler = logging.FileHandler(logfile)
 file_handler.setFormatter(formatter)
-file_handler.setLevel(logging.INFO)
+file_handler.setLevel(logging.DEBUG)
 
 # Setup stream handler
 stream_handler = logging.StreamHandler()
 stream_handler.setFormatter(formatter)
-stream_handler.setLevel(logging.DEBUG)
+stream_handler.setLevel(logging.INFO)
 
 # Add handlers
 logger.addHandler(file_handler)

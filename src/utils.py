@@ -1,6 +1,8 @@
 from os.path import join, dirname, isdir, abspath, exists
 from os import getenv, getcwd, mkdir, listdir, remove
 from dotenv import load_dotenv, find_dotenv
+
+import tiktoken
     
 
 def get_command_template(context: str) -> str:
@@ -76,3 +78,7 @@ def clean_temp_dir() -> str:
         remove(join(tmp_dir, filename))
         
     return tmp_dir
+
+
+def count_tokens(text, model_name):
+    return len(tiktoken.encoding_for_model(model_name).encode(text))

@@ -18,9 +18,7 @@ def start_bot(bot_instance: CodebaseArchitectBot):
 
 if __name__ == "__main__":
     handle_env()
-    
-    clean_temp_dir()
-    
+        
     model = CodebaseModel(getenv("OPENAI_TOKEN"), model=getenv("MODEL"))
     bot = CodebaseArchitectBot(getenv("BOT_TOKEN"), model=model)
     
