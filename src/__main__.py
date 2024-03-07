@@ -1,7 +1,7 @@
 from .telegram import CodebaseArchitectBot
 from .utils import handle_env, get_commands, clean_temp_dir
 from .logger import logger
-from .model import CodebaseModel
+from .models import CodebaseModelOpenAI
 
 import threading
 from os import getenv
@@ -19,7 +19,7 @@ def start_bot(bot_instance: CodebaseArchitectBot):
 if __name__ == "__main__":
     handle_env()
         
-    model = CodebaseModel(getenv("OPENAI_TOKEN"), model=getenv("MODEL"))
+    model = CodebaseModelOpenAI(getenv("OPENAI_TOKEN"), model=getenv("MODEL"))
     bot = CodebaseArchitectBot(getenv("BOT_TOKEN"), model=model)
     
     # Set the bot commands:

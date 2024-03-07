@@ -1,14 +1,14 @@
 from telebot import TeleBot, types
 
 from .utils import get_command_template, get_temp_dir, count_tokens
-from .model import CodebaseModel
+from .models import CodebaseModelOpenAI
 from .builder import CodebaseBuilder
 
 import os
 
 
 class CodebaseArchitectBot(TeleBot):
-    def __init__(self, bot_token: str, model: CodebaseModel):
+    def __init__(self, bot_token: str, model: CodebaseModelOpenAI):
         super().__init__(token=bot_token)
 
         self.user_sessions = {}  # {user_id: {'last_call': 12345678, 'to_lang': 'yy'}}

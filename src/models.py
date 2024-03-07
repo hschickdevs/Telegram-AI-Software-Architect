@@ -11,19 +11,21 @@ from .logger import logger
 
 
 class CodebaseModel(OpenAI):
-    def __init__(self, api_key: str, model: str = "gpt-3.5-turbo"):
+    def __init__(self, api_key: str, model: str = "openai", model_code: str = "gpt-3.5-turbo"):
         """
         Initializes the translator object.
         
         Args:
             api_key (str): Your OpenAI API key
-            model (str, optional): The OpenAI model to use. Defaults to "gpt-3.5-turbo".
+            model (str, optional): claude or openai are the current available models
+            model_code (str, optional): The Claude or OpenAI model to use. Defaults to "gpt-3.5-turbo".
         """
         super().__init__(api_key=api_key)
         self.model = model
+        self.model_code = model_code
     
     
-    def _call_api(self, prompt: str, retries: int = 1) -> dict:
+    def _call_openai(self, prompt: str, retries: int = 1) -> dict:
         """
         Handles the call to the OpenAI API ChatCompletions endpoint, and the parsing of the response.
         
@@ -36,7 +38,7 @@ class CodebaseModel(OpenAI):
         """
         response = None
         try:
-            response = self.chat.completions.create(model=self.model,
+            response = self.chat.completions.create(model=self.model_code,
             messages=[{"role": "user", "content": prompt}])
             
             logger.debug(f"API Response: {response}")
@@ -49,6 +51,11 @@ class CodebaseModel(OpenAI):
             else:
                 logger.error(f"Received an error while parsing the response from the API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
                 return {"success": False, "message": f"API response could not be loaded (see logs): {str(err)}"}
+
+
+    def _call_claude(self, prompt: str, retries: int = 1) -> dict:
+        # TODO:
+        pass
 
 
     def generate_codebase(self, context: str) -> dict:
@@ -66,8 +73,13 @@ class CodebaseModel(OpenAI):
             prompt = f.read().format(context=context)
             
         print("PROMPT:", prompt)
-            
-        response = self._call_api(prompt)
+        
+        if self.model == "openai":
+            response = self._call_openai(prompt)
+        elif:
+            response = self._call_claude(prompt)
+        else:
+            raise NotImplementedError(f"'{self.model}' model does not exist.")
         
         # Process response and return the JSON object
         
