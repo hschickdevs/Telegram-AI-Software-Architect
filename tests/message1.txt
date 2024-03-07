@@ -1,0 +1,87 @@
+/generate A Python project for a task management application with the following requirements:
+
+1. The project should have a src directory containing the main Python files and a tests directory for unit tests.
+
+2. In the src directory, create a file named task.py that defines a Task class with the following attributes:
+
+- id (integer): A unique identifier for the task.
+
+- title (string): The title of the task.
+
+- description (string): A detailed description of the task.
+
+- due_date (datetime): The due date of the task.
+
+- completed (boolean): Indicates whether the task is completed or not.
+
+3. In the src directory, create a file named task_manager.py that defines a TaskManager class with the following methods:
+
+- __init__(self): Initialize an empty list to store tasks.
+
+- add_task(self, task): Add a new task to the task list.
+
+- remove_task(self, task_id): Remove a task from the task list based on its ID.
+
+- get_task(self, task_id): Retrieve a task from the task list based on its ID.
+
+- mark_task_completed(self, task_id): Mark a task as completed based on its ID.
+
+- get_all_tasks(self): Return a list of all tasks.
+
+- get_completed_tasks(self): Return a list of completed tasks.
+
+- get_incomplete_tasks(self): Return a list of incomplete tasks.
+
+4. In the src directory, create a file named main.py that demonstrates the usage of the Task and TaskManager classes. It should:
+
+- Create a TaskManager instance.
+
+- Create several Task instances with different attributes.
+
+- Add the tasks to the task manager using the add_task() method.
+
+- Display all tasks using the get_all_tasks() method.
+
+- Mark a task as completed using the mark_task_completed() method.
+
+- Display completed tasks using the get_completed_tasks() method.
+
+- Display incomplete tasks using the get_incomplete_tasks() method.
+
+5. In the tests directory, create a file named test_task_manager.py that contains unit tests for the TaskManager class. It should test the following:
+
+- Adding a task to the task manager.
+
+- Removing a task from the task manager.
+
+- Retrieving a task from the task manager based on its ID.
+
+- Marking a task as completed.
+
+- Getting all tasks from the task manager.
+
+- Getting completed tasks from the task manager.
+
+- Getting incomplete tasks from the task manager.
+
+6. Create a README.md file in the project root directory that provides instructions on how to run the application and execute the unit tests.
+
+Organize the project structure as follows:
+
+task_manager/
+
+├── src/
+
+│ ├── task.py
+
+│ ├── task_manager.py
+
+│ └── main.py
+
+├── tests/
+
+│ └── test_task_manager.py
+
+└── README.md
+
+Generate the Python code for the Task class, TaskManager class, main.py, and test_task_manager.py, along with the content for the README.md file.

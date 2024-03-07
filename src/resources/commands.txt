@@ -1,0 +1,3 @@
+help - Get information about bot commands and their usages
+generate - Prompt the bot to architect a codebase using /generate <context>
+contact - Get in touch with the developer

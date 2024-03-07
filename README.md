@@ -6,6 +6,8 @@
 
  All codebase generation is done in a single API call to save on context token cost.
 
+ > **Note:** Even though the Claude and OpenAI models are supported, Claude actually performs much better in this specific task. 
+
  ## Testing Prompts:
 
  `/generate basic software that allows the user to input two numbers from the command line. The output to the console should be "HELLO WORLD! Here is your number: <number>"`

@@ -3,3 +3,4 @@ pyTelegramBotAPI
 python-dotenv
 docker
 tiktoken
+anthropic

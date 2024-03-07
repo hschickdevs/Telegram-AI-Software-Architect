@@ -1,4 +1,6 @@
 import os
+import shutil
+import zipfile
 
 class CodebaseBuilder:
     def __init__(self, project_folder):
@@ -30,3 +32,10 @@ class CodebaseBuilder:
     def clean_up(self):
         if os.path.exists(self.project_folder):
             shutil.rmtree(self.project_folder)
+            
+    def zip_project(self, output_path):
+        with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
+            for root, dirs, files in os.walk(self.project_folder):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    zipf.write(file_path, os.path.relpath(file_path, self.project_folder))

@@ -1,6 +1,7 @@
 # Contains the functionality to send and receive the prompts and codebase responses from OpenAI
 from json import loads
 from openai import OpenAI
+from anthropic import Anthropic
 
 from os.path import join, dirname, isdir
 from os import getenv, getcwd, mkdir
@@ -10,19 +11,24 @@ import json
 from .logger import logger
 
 
-class CodebaseModel(OpenAI):
-    def __init__(self, api_key: str, model: str = "openai", model_code: str = "gpt-3.5-turbo"):
+class CodebaseModel:
+    def __init__(self, api_key: str, model: str, model_code: str):
         """
         Initializes the translator object.
         
         Args:
             api_key (str): Your OpenAI API key
-            model (str, optional): claude or openai are the current available models
-            model_code (str, optional): The Claude or OpenAI model to use. Defaults to "gpt-3.5-turbo".
+            model (str): claude or openai are the current available models
+            model_code (str): The Claude or OpenAI model to use.
         """
-        super().__init__(api_key=api_key)
+        assert model in ["claude", "openai"], f"'{model}' model not supported."
+        
         self.model = model
         self.model_code = model_code
+        
+        # Create model connectors
+        self.openai = OpenAI(api_key=api_key) if model == "openai" else None
+        self.claude = Anthropic(api_key=api_key) if model == "claude" else None
     
     
     def _call_openai(self, prompt: str, retries: int = 1) -> dict:
@@ -38,24 +44,52 @@ class CodebaseModel(OpenAI):
         """
         response = None
         try:
-            response = self.chat.completions.create(model=self.model_code,
+            response = self.openai.chat.completions.create(model=self.model_code,
             messages=[{"role": "user", "content": prompt}])
             
-            logger.debug(f"API Response: {response}")
+            logger.debug(f"OpenAPI Response: {response}")
                         
             return loads(response.choices[0].message.content.strip())
 
         except Exception as err:
             if retries > 0:
-                return self._call_api(prompt, retries-1)
+                return self._call_openai(prompt, retries-1)
             else:
-                logger.error(f"Received an error while parsing the response from the API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
-                return {"success": False, "message": f"API response could not be loaded (see logs): {str(err)}"}
+                logger.error(f"Received an error while parsing the response from the OpenAI API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
+                return {"error": True, "message": f"API response could not be loaded (see logs): {str(err)}"}
 
 
     def _call_claude(self, prompt: str, retries: int = 1) -> dict:
-        # TODO:
-        pass
+        """
+        Handles the call to the Claude Messages endpoint, and the parsing of the response.
+        
+        Args:
+            prompt (str): The formatted prompt string
+            retries (int): The number of times to retry if an error occurs. Default is 3.
+
+        Returns:
+            dict: The parsed response in the format of: {"success": bool, "message": str}
+        """
+        response = None
+        try:
+            message = self.claude.messages.create(
+                model="claude-3-opus-20240229",
+                max_tokens=4096,
+                messages=[
+                    {"role": "user", "content": prompt}
+                ]
+            )
+            
+            logger.debug(f"Claude Response: {message}")
+            
+            return loads(message.content[0].text.strip())
+
+        except Exception as err:
+            if retries > 0:
+                return self._call_claude(prompt, retries-1)
+            else:
+                logger.error(f"Received an error while parsing the response from the Anthropic (Claude) API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
+                return {"error": True, "message": f"API response could not be loaded (see logs): {str(err)}"}
 
 
     def generate_codebase(self, context: str) -> dict:
@@ -76,10 +110,8 @@ class CodebaseModel(OpenAI):
         
         if self.model == "openai":
             response = self._call_openai(prompt)
-        elif:
-            response = self._call_claude(prompt)
         else:
-            raise NotImplementedError(f"'{self.model}' model does not exist.")
+            response = self._call_claude(prompt)
         
         # Process response and return the JSON object
         

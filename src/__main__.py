@@ -1,7 +1,7 @@
 from .telegram import CodebaseArchitectBot
 from .utils import handle_env, get_commands, clean_temp_dir
 from .logger import logger
-from .models import CodebaseModelOpenAI
+from .models import CodebaseModel
 
 import threading
 from os import getenv
@@ -19,7 +19,7 @@ def start_bot(bot_instance: CodebaseArchitectBot):
 if __name__ == "__main__":
     handle_env()
         
-    model = CodebaseModelOpenAI(getenv("OPENAI_TOKEN"), model=getenv("MODEL"))
+    model = CodebaseModel(getenv("API_KEY"), model=getenv("MODEL"), model_code=getenv("MODEL_CODE"))
     bot = CodebaseArchitectBot(getenv("BOT_TOKEN"), model=model)
     
     # Set the bot commands:
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     # Start the bot
     while True:
-        logger.info(f"Bot started with token {getenv('BOT_TOKEN')} ...")
+        logger.info(f"Bot started with token {getenv('BOT_TOKEN')} using {model.model} ...")
 
         # Start bot polling as a daemon thread (so that it can be stopped by KeyboardInterrupt in the main thread)
         polling_thread = threading.Thread(target=start_bot, args=(bot,), daemon=True)

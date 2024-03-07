@@ -27,7 +27,7 @@ def handle_env():
     except:
         pass
     finally:
-        mandatory_vars = ['BOT_TOKEN', 'OPENAI_TOKEN']
+        mandatory_vars = ['BOT_TOKEN', 'API_KEY']
         for var in mandatory_vars:
             val = getenv(var)
             if val is None:

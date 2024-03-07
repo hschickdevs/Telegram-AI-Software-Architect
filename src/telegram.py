@@ -1,14 +1,14 @@
 from telebot import TeleBot, types
 
 from .utils import get_command_template, get_temp_dir, count_tokens
-from .models import CodebaseModelOpenAI
+from .models import CodebaseModel
 from .builder import CodebaseBuilder
 
 import os
 
 
 class CodebaseArchitectBot(TeleBot):
-    def __init__(self, bot_token: str, model: CodebaseModelOpenAI):
+    def __init__(self, bot_token: str, model: CodebaseModel):
         super().__init__(token=bot_token)
 
         self.user_sessions = {}  # {user_id: {'last_call': 12345678, 'to_lang': 'yy'}}
@@ -45,7 +45,14 @@ class CodebaseArchitectBot(TeleBot):
                 builder = CodebaseBuilder(project_folder=os.path.join(tmp, response['project']))
                 builder.build_codebase(response)
                 
-                # Send the folder to telegram
+                # Zip the project folder
+                zip_path = os.path.join(tmp, f"{response['project']}.zip")
+                builder.zip_project(zip_path)
                 
-                # Clean up the build
+                # Send the zip file to Telegram
+                with open(zip_path, 'rb') as zip_file:
+                    self.send_document(message.chat.id, zip_file)
                 
+                # Clean up the build and zip file
+                builder.clean_up()
+                os.remove(zip_path)

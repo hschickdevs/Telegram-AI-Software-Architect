@@ -1,0 +1,1 @@
+/generate A simple codebase architecture of your choice for a simple task
