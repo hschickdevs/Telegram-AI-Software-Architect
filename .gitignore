@@ -156,3 +156,5 @@ cython_debug/
 .DS_Store
 .idea
 logs/**
+testing.py
+tmp/**
