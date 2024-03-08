@@ -22,7 +22,7 @@
         <i>Supports <a href="https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo">OpenAI</a> and <a href="https://www.anthropic.com/claude">Claude</a> language models</i>
     </p>
     <p>
-        <i>Output includes requirement and readme files for setup & usage</i>
+        <i>Output zip includes requirement and readme files for setup & usage</i>
     </p>
     <a href="#about-the-project"><strong>Learn More »</strong></a>
     <br />
@@ -60,55 +60,59 @@
 
 ![PRODUCT DEMO/GIF](docs/demo.gif)
 
-This Telegram bot leverages the power of OpenAI's GPT language models to provide advanced text translations. Unlike traditional translation services like Google Translate, this bot offers several unique advantages:
+This Telegram bot leverages the power of OpenAI or Claude's large language models to provide full architectured software solutions. Unlike traditional code generation, this bot provides entire architectural solutions, including requirement and readme files for setup and usage. The bot is capable of generating codebases for a wide range of software projects, from simple command-line applications to complex web applications. 
 
-1. **Contextual and Punctual Accuracy**: Through prompt engineering, the bot is capable of understanding the context and nuances of the text, providing translations that are both contextually and punctually accurate.
+Here is an example of a code structure that was architected for the simple `todo-app` shown in the demo above:
 
-2. **Specific Language Context**: The bot can be configured to understand and translate specific dialects or regional language variations, such as Spanish (Mexico Dialect).
+```
+todo-app/
+├── README.md
+├── requirements.txt
+└── src/
+    ├── app.py
+    ├── sqlite.py
+    └── templates/
+        └── index.html
+```
 
-3. **Typo Detection**: The advanced AI model automatically detects typos and corrects them, ensuring the translation is as accurate as possible.
+Just simply prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for you and send the zipped code the Telegram chat.
 
-> 💡 **Tip:** This bot can be used in group chats as well as private chats for live translations!
-
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+> 💡 **Tip:** The [Claude 3 Opus](https://www.anthropic.com/news/claude-3-family) model has proven to be exceptionally more effective at generating the codebases than even the best OpenAI GPT models.
 
 
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- DEPLOYMENT -->
+## Deployment
 
-To get your own local instance of the Telegram AI translation bot up and running, follow these simple steps:
+To get your own local instance of the Telegram AI Codebase Architect bot up and running, follow these simple steps:
 
 ### Prerequisites
 
-Before you continue, you will need to do the following:
+1. Before you continue, you will need to secure either an OpenAI API key or an Anthropic Claude API key.
 
-1. Get an **OpenAI API key**. If you don't know how to do so, use [**this guide**](https://www.maisieai.com/help/how-to-get-an-openai-api-key-for-chatgpt) for reference.
+    **Option a.** Get an OpenAI API key using [**this guide**](https://www.maisieai.com/help/how-to-get-an-openai-api-key-for-chatgpt) for reference.
 
-    > Before sure to review the [pricing](https://openai.com/pricing/) for OpenAI's API in deciding which model to use. The default model is `gpt-3.5-turbo`, which is the cheaper and faster option.
+    **Option b.** Get a Claude API key using [**this link**](https://console.anthropic.com/) for reference.
 
-2. Create a new **Telegram bot** and get the **bot token** using [**BotFather**](https://t.me/botfather). If you don't know how to do so, use [**this guide**](https://www.siteguarding.com/en/how-to-get-telegram-bot-api-token) for reference. Additionally, you will need to change the following settings in BotFather:
+    > 💸 Before sure to review pricing for the APIs in deciding which model to use.
 
-    1. `/mybots` -> `<your_bot_name>` -> `Bot Settings` -> `Group Privacy` -> `Turn off`
+2. Choose your preferred model to use for the bot.
 
-    2. `/mybots` -> `<your_bot_name>` -> `Bot Settings` -> `Allow Groups` -> `Turn on`
+    If you are using OpenAI, it is recommended to use the latest gpt4 model. If you are using Claude, it is recommended to use the Claude 3 Opus model. The process of generating entire codebases is very complex and requires advanced LLMs. In this case, paying for the best model is worth it.
 
-### Quick Setup
+    You will need to find the model code for these. For example, the latest version of OpenAI's GPT model code is `gpt-4-0125-preview`.
 
-Although there isn't a completely simple way to set up this bot, the easiest way to do so is by deploy the Docker image on Google Cloud Platform. If you don't know what a Docker image is, don't worry, the following steps will guide you through the process of deploying the bot to the cloud using Google Cloud Platform:
+2. Create a new **Telegram bot** and get the **bot token** using [**BotFather**](https://t.me/botfather). If you don't know how to do so, you can use [**this guide**](https://www.siteguarding.com/en/how-to-get-telegram-bot-api-token) for reference.
 
-[**🔗VIEW THE GUIDE HERE**](docs/gcp-deploy/gcp-deploy.md)
+Make sure that you have saved your model APIKEY, model code, and bot token in a safe place. You will need them in the next steps. 
+
+### Installation & Setup
+
+Before continuing, ensure that you have docker installed on your system. If you do not, you can download it [**🔗 here**](https://www.docker.com/products/docker-desktop).
+
+_Docker container development in progress ..._
 
 
-### Advanced Setup
-
-If you'd prefer to deploy the bot manually, follow the folowing steps in your preferred local or cloud environment. For the sake of this guide, we will be deploying the bot locally from source and docker in a UNIX environment (On a MacOS or Linux machine).
-
-#### Option 1: Run Locally using Docker
-
-> If you don't have docker installed, you can use [Option 2](#option-2-run-locally-from-source) to run the bot locally from source.
-
-1. Pull the Docker image from Docker Hub:
+<!-- 1. Pull the Docker image from Docker Hub:
 
    ```sh
    docker pull hschickdevs/telegram-translate-ai
@@ -138,75 +142,7 @@ If you'd prefer to deploy the bot manually, follow the folowing steps in your pr
       docker attach telegram-translate-ai
       ```
 
-      If you don't see any errors, the bot should now be running! Head to your bot on Telegram and test it out.
-
-#### Option 2: Run Locally from Source
-
-1. Before you begin, make sure you have Python 3.9+ and pip installed on your system.
-
-    Check your Python version in your command prompt using:
-
-    * **MacOS/Linux:**
-      ```sh
-      python3 -V
-      ```
-
-    * **Windows:**
-      ```sh
-      python -V
-      ```
-      _or_
-      ```sh
-      py -V
-      ```
-
-    If you do not have Python 3.9+ installed, you can download it [**🔗 here**](https://www.python.org/downloads/).
-
-2. Clone the repo:
-
-   ```sh
-   git clone https://github.com/hschickdevs/Telegram-Translate-AI.git
-   ```
-
-3. CD into the project directory:
-
-   ```sh
-   cd Telegram-Translate-AI
-   ```
-   
-4. Install pip packages:
-   
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-3. Set environment variables. The following environment variables should be set:
-
-   ```sh
-   OPENAI_TOKEN=<YOUR_APIKEY>
-   BOT_TOKEN=<YOUR_TOKEN>
-   MODEL=<GPT-MODEL>
-   ```
-
-   > **Note:** The `MODEL` variable is optional and defaults to `gpt-3.5-turbo`. If you have the plus subscription, you can set this to `gpt-4` for better results.
-
-   To set your environment variables, rename the file called [`.env.example`](/.env.example) in the root directory of the project to `.env`, and then replace the value contents with your tokens and model.
-
-    > **Note:** The existing values in the `.env.example` file are placeholders and are for demonstration purposes only. You should **never** share your API keys or tokens with anyone.
-
-4. Make sure that you are in the root directory of the project (_type `pwd`_), and then run the following command to start the bot:
-
-    ```sh
-    python3 -m src
-    ```
-
-    > **Note:** If you are using Windows, you may need to use `python -m src` or `py -m src` instead.
-
-If you don't see any errors, the bot should now be running! Head to your bot on Telegram and test it out.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+      If you don't see any errors, the bot should now be running! Head to your bot on Telegram and test it out. -->
 
 <!-- USAGE EXAMPLES -->
 ## Bot Commands
@@ -217,42 +153,31 @@ Returns all available commands and their descriptions.
 
 ___
 
-#### `/t <source (context)> - <target (context)> - <text>`
+#### `/generate <context>`
 
-(Use **/t** or **/translate**) 📖 Translate text from one language to another. 
+🛠️ Generate a codebase given the context.
 
-> The first two "-" symbols are used as the delimiter/separator for the source language & context, target language & context, and text. As long as you provide the first two "-" symbols between source & target and target & text, you can use as many as you want in the text.
+> For the highest quality output, it is recommended to use the Claude 3 Opus model, as well as provide a detailed context for the software you want to be architected.
 
-| Parameter          | Description                                                                                     |
-|--------------------|-------------------------------------------------------------------------------------------------|
-| source (context)   | The source language and context (e.g., dialect) from which you want to translate.                |
-| target (context)   | The target language and context (e.g., dialect) to which you want to translate.                  |
-| text               | The text you want to translate.                                                                  |
+_For (a very simple) example:_ 
 
-_For example, the following command translates English to Spanish in the dialect of Madrid, Spain (as opposed to Mexico City dialect):_
-
-`/t English - Spanish (Madrid Dialect) - Hi there, I'm a bot!`
+`/generate a simple web application that allows users to create, read, update, and delete tasks. The application should be built using the Flask framework and should use a SQLite database to store the tasks.` 
 
 ___
 
-#### `/s <language1 (context)> - <language2 (context)>`
+#### `/ask <context>`
 
-(Use **/s** or **/session**) 🔄 Start a continuous translation session. In this mode, every following message you send will be automatically language detected and translated to the other language in the pair.
+💬 Ask the model anything and receive a standard response.
 
-| Parameter          | Description                                                                                     |
-|--------------------|-------------------------------------------------------------------------------------------------|
-| language1 (context)   | The first language and context (e.g., dialect) in the translation pair.   |
-| language2 (context)   | The second language and context (e.g., dialect) in the translation pair.     |
+_For example, the following command asks the bot how Docker works:_
 
-_For example, the following command starts a continuous translation session with English and Spanish in the Mexico City dialect:_
+`/ask How does Docker work?`
 
-`/session English - Spanish (Mexico City Dialect)`
+___
 
-🛑 To end a continuous session, click the "Quit Session" button on the inline keyboard below any of the translated messages.
+#### `/contact`
 
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
+📞 Contact the developer for support or feedback.
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -262,38 +187,13 @@ _For example, the following command starts a continuous translation session with
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+If you don't have any ideas, see the [open issues](https://github.com/hschickdevs/Telegram-AI-Codebase-Architect/issues) for a list of proposed features (and known issues) to address.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
-### Acknowledgements
-
-Thanks to these awesome tools and frameworks for aiding in the development of this project!
-
-* [PyTelegramBotAPI](https://pypi.org/project/pyTelegramBotAPI/)
-* [OpenAI Python Library](https://pypi.org/project/openai/)
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add translation sessions
-- [x] Add detailed documentation
-- [x] Add Docker image
-- [x] Add bot Demo feature 
-- [X] Add group translation sessions
-- [ ] Multi-platform Support
-    - [ ] Whatsapp
-    - [ ] Discord
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- LICENSE -->
@@ -304,9 +204,6 @@ Distributed under the GPLv3.0 License. See `LICENSE.txt` for more information.
 In summary, the GNU General Public License v3 (GPLv3) is a free software license that allows you to use, modify, and distribute the software for personal and commercial use. 
 
 However, any changes you make must also be open-sourced under the same license. This ensures that derivative work remains free and open, promoting collaboration and transparency. Importantly, if you distribute the software or any modifications, you must make the source code available and clearly state any changes you've made.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
 
 
 <!-- CONTACT -->
