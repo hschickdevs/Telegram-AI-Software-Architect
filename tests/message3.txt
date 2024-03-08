@@ -1,0 +1,26 @@
+/generate Please generate a Python project for a basic todo list application with the following structure:
+
+- todo_app/
+  - app.py
+  - todo.py
+  - database.py
+  - templates/
+    - index.html
+    - base.html
+  - static/
+    - css/
+      - styles.css
+    - js/
+      - app.js
+  - requirements.txt
+  - README.md
+
+The project should have the following functionality:
+- Use Flask as the web framework
+- Use SQLite for the database
+- Allow users to view, add, update, and delete todo items
+- Have a simple and intuitive user interface
+- Include basic error handling and validation
+- Provide clear instructions in the README.md file for running the application
+
+Please include the necessary code for each file, along with any additional configuration or setup required. The code should be well-organized, follow best practices, and include comments where appropriate.
