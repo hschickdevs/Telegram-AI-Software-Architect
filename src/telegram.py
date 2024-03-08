@@ -7,13 +7,14 @@ import os
 from .utils import get_command_template, get_temp_dir, count_tokens
 from .models import CodebaseModel
 from .builder import CodebaseBuilder
+from .config import WHITELIST, LIMIT
 
 
 class CodebaseArchitectBot(TeleBot):
     def __init__(self, bot_token: str, model: CodebaseModel):
         super().__init__(token=bot_token)
 
-        self.user_sessions = {}  # {user_id: {'last_call': 12345678, 'to_lang': 'yy'}}
+        self.user_counts = {}  # {user_id: {'last_call': 12345678, 'to_lang': 'yy'}}
         self.model = model
 
         @self.message_handler(commands=['start'])
@@ -28,8 +29,39 @@ class CodebaseArchitectBot(TeleBot):
         def on_contact(message):
             self.reply_to(message, get_command_template('contact').format(bot_name=self.get_me().first_name), parse_mode='Markdown')
             
+        @self.message_handler(commands=['ask'])
+        def on_ask(message):
+            user_id = message.from_user.id
+            if user_id not in self.user_counts:
+                self.user_counts[user_id] = {'ask_count': 0}
+            if user_id not in WHITELIST and self.user_counts[user_id]['ask_count'] >= LIMIT:
+                self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/ask` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
+                return
+            
+            try:
+                context = message.text.split(' ', 1)[1]
+            except IndexError:
+                self.reply_to(message, "Please provide the context what you want to ask by sending `/ask <context>`", parse_mode='Markdown')
+                return
+            
+            self.user_counts[user_id]['ask_count'] += 1
+            
+            sent_msg = self.reply_to(message, "_🧠 Thinking, please wait ..._", parse_mode="Markdown")
+            
+            response = self.model.generic_call(context)
+            
+            self.edit_message_text(response, chat_id=sent_msg.chat.id, message_id=sent_msg.message_id, parse_mode='Markdown')
+            
+            
         @self.message_handler(commands=['generate'])
         def on_generate(message):
+            user_id = message.from_user.id
+            if user_id not in self.user_counts:
+                self.user_counts[user_id] = {'generate_count': 0}
+            if user_id not in WHITELIST and self.user_counts[user_id]['generate_count'] >= LIMIT:
+                self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/generate` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
+                return
+            
             try:
                 context = message.text.split(' ', 1)[1]
             except IndexError:
@@ -37,6 +69,9 @@ class CodebaseArchitectBot(TeleBot):
                 return
             
             if len(context.strip()) > 0:
+                # Increment user count
+                self.user_counts[user_id]['generate_count'] += 1
+                
                 token_count = '{:,}'.format(count_tokens(context, "gpt-4"))
                 progress_message = self.reply_to(message, f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n_🚀 Operation started ..._", parse_mode='Markdown')
                 

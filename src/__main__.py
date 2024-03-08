@@ -24,7 +24,7 @@ if __name__ == "__main__":
     
     # Set the bot commands:
     user_commands = [types.BotCommand(command=command, description=description)
-                     for command, description in get_commands().items()]
+                     for command, description in get_commands(model=getenv("MODEL_CODE")).items()]
     bot.set_my_commands(user_commands)
 
     # Start the bot

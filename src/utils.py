@@ -40,7 +40,7 @@ def get_logfile() -> str:
     return join(log_dir, 'log.txt')
 
 
-def get_commands() -> dict:
+def get_commands(model: str) -> dict:
     """Fetches the commands from the templates for the help command"""
     commands = {}
     
@@ -48,7 +48,8 @@ def get_commands() -> dict:
     file_path = join(dirname(abspath(__file__)), 'resources', 'commands.txt')
     
     with open(file_path, 'r') as f:
-        for line in f.readlines():
+        content = f.read().format(model=model)
+        for line in content.splitlines():
             # Splitting at the first '-' to separate command and description
             command, description = line.strip().split(' - ', 1)
             commands[command.strip()] = description.strip()

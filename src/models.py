@@ -31,7 +31,7 @@ class CodebaseModel:
         self.claude = Anthropic(api_key=api_key) if model == "claude" else None
     
     
-    def _call_openai(self, prompt: str, retries: int = 1) -> dict:
+    def _call_openai(self, prompt: str, fmt: str = "json", retries: int = 1) -> dict:
         """
         Handles the call to the OpenAI API ChatCompletions endpoint, and the parsing of the response.
         
@@ -48,18 +48,23 @@ class CodebaseModel:
             messages=[{"role": "user", "content": prompt}])
             
             logger.debug(f"OpenAPI Response: {response}")
-                        
-            return loads(response.choices[0].message.content.strip())
+            
+            if fmt == "json": 
+                return loads(response.choices[0].message.content.strip())
+            elif fmt == "str":
+                return response.choices[0].message.content.strip()
+            else:
+                raise NotImplementedError("Invalid format (str or json)")
 
         except Exception as err:
             if retries > 0:
-                return self._call_openai(prompt, retries-1)
+                return self._call_openai(prompt, fmt, retries-1)
             else:
                 logger.error(f"Received an error while parsing the response from the OpenAI API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
                 return {"error": True, "message": f"API response could not be loaded (see logs): {str(err)}"}
 
 
-    def _call_claude(self, prompt: str, retries: int = 1) -> dict:
+    def _call_claude(self, prompt: str, fmt: str = "json", retries: int = 1) -> dict:
         """
         Handles the call to the Claude Messages endpoint, and the parsing of the response.
         
@@ -82,11 +87,16 @@ class CodebaseModel:
             
             logger.debug(f"Claude Response: {message}")
             
-            return loads(message.content[0].text.strip())
+            if fmt == "json":
+                return loads(message.content[0].text.strip())
+            elif fmt == "str":
+                return message.content[0].text.strip()
+            else:
+                raise NotImplementedError("Invalid format (str or json)")
 
         except Exception as err:
             if retries > 0:
-                return self._call_claude(prompt, retries-1)
+                return self._call_claude(prompt, fmt, retries-1)
             else:
                 logger.error(f"Received an error while parsing the response from the Anthropic (Claude) API: {str(err)}\nWith response: {response}\nFor prompt: {prompt}")
                 return {"error": True, "message": f"API response could not be loaded (see logs): {str(err)}"}
@@ -119,4 +129,27 @@ class CodebaseModel:
         print(f"\nRESPONSE:")
         print(json.dumps(response, indent=2))
 
+        return response
+    
+    def generic_call(self, context: str) -> str:
+        """
+        Used by the /ask command to generate generic responses instead of JSON formatted codebases.
+        
+        Args:
+            context (str): The context of what to ask.
+
+        Returns:
+            str: Returns a string object representing the API response.
+        """
+        with open(join(dirname(__file__), 'resources', 'prompts', 'prompt_ask.txt'), 'r') as f:
+            prompt = f.read().format(context=context)
+        
+        # Format the translate.txt prompt file to construct the detailed prompt for the translation task 
+        print("PROMPT:", context)
+        
+        if self.model == "openai":
+            response = self._call_openai(prompt, "str")
+        else:
+            response = self._call_claude(prompt, "str")
+    
         return response
