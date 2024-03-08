@@ -60,7 +60,7 @@
 
 ![PRODUCT DEMO/GIF](docs/demo.gif)
 
-This Telegram bot leverages the power of OpenAI or Claude's large language models to provide full architectured software solutions. Unlike traditional code generation, this bot provides entire architectural solutions, including requirement and readme files for setup and usage. The bot is capable of generating codebases for a wide range of software projects, from simple command-line applications to complex web applications. 
+This Telegram bot leverages the power of OpenAI or Claude's large language models to provide full architectured software solutions, zipped and ready to go in your convenient Telegram chat window. The output includes requirement and readme files for easy setup and usage. The bot is capable of generating codebases for a wide range of software projects, from simple command-line applications to complex web applications. 
 
 Here is an example of a code structure that was architected for the simple `todo-app` shown in the demo above:
 
