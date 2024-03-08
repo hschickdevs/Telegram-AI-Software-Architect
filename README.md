@@ -12,7 +12,7 @@
   <h3 align="center">Telegram-AI-Codebase-Architect</h3>
 
   <p align="center">
-    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy software projects from user prompts in a matter of seconds.
+    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy codebases from user prompts in a matter of seconds.
     <br />
     <h4>Notable Features:</h4>
     <p>
@@ -41,7 +41,7 @@
 
 > 🚧 _CURRENTLY IN DEVELOPMENT ..._
 
- Telegram bot that uses AI to generate full codebases from user prompts. It provides structured, ready-to-deploy software projects, differentiating from simple code generation by offering entire architectural solutions. Prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for you and send the zipped code the Telegram chat.
+ Telegram bot that uses AI to generate full codebases from user prompts. It provides structured, ready-to-deploy codebases, differentiating from simple code generation by offering entire architectural solutions. Prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for you and send the zipped code the Telegram chat.
 
  **Notable Features**:
 
