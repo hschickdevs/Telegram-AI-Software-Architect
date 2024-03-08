@@ -210,3 +210,11 @@ However, any changes you make must also be open-sourced under the same license. 
 ## Contact
 
 **Telegram:** [@hschickdevs](https://t.me/hschickdevs)
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/hschickdevs/Telegram-AI-Codebase-Architect.svg?style=for-the-badge&color=blue
+[contributors-url]: https://github.com/hschickdevs/Telegram-AI-Codebase-Architect/blob/main/bot/__init__.py
+
+[issues-shield]: https://img.shields.io/github/issues/hschickdevs/Telegram-AI-Codebase-Architect?style=for-the-badge&color=red
+[issues-url]: https://github.com/hschickdevs/Telegram-AI-Codebase-Architect/issues
