@@ -107,7 +107,7 @@ To get your own local instance of the Telegram AI Codebase Architect bot up and 
 
     If you are using OpenAI, it is recommended to use the latest gpt4 model. If you are using Claude, it is recommended to use the Claude 3 Opus model. The process of generating entire codebases is very complex and requires advanced LLMs. In this case, paying for the best model is worth it.
 
-    You will need to find the model code for these. For example, the latest version of OpenAI's GPT model code is `gpt-4-0125-preview`.
+    You will need to find the model code for these. For example, the latest version of the Claude 3 Opus model's code is `claude-3-opus-20240229`.
 
 2. Create a new **Telegram bot** and get the **bot token** using [**BotFather**](https://t.me/botfather). If you don't know how to do so, you can use [**this guide**](https://www.siteguarding.com/en/how-to-get-telegram-bot-api-token) for reference.
 
