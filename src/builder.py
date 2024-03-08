@@ -39,3 +39,5 @@ class CodebaseBuilder:
                 for file in files:
                     file_path = os.path.join(root, file)
                     zipf.write(file_path, os.path.relpath(file_path, self.project_folder))
+    
+    

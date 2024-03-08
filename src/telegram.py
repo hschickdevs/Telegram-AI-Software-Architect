@@ -1,10 +1,12 @@
 from telebot import TeleBot, types
+import threading
+import itertools
+import time
+import os
 
 from .utils import get_command_template, get_temp_dir, count_tokens
 from .models import CodebaseModel
 from .builder import CodebaseBuilder
-
-import os
 
 
 class CodebaseArchitectBot(TeleBot):
@@ -36,9 +38,21 @@ class CodebaseArchitectBot(TeleBot):
             
             if len(context.strip()) > 0:
                 token_count = '{:,}'.format(count_tokens(context, "gpt-4"))
-                self.reply_to(message, f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n_⚙️ Please wait, this may take a while ..._", parse_mode='Markdown')
+                progress_message = self.reply_to(message, f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n_🚀 Operation started ..._", parse_mode='Markdown')
+                
+                def animate_progress():
+                    animation = itertools.cycle(["🔄", "🔁", "🔃"])
+                    loading = itertools.cycle([".", "..", "..."])
+                    while self.is_generating:
+                        self.edit_message_text(f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n_{next(animation)} Building codebase {next(loading)}_", chat_id=progress_message.chat.id, message_id=progress_message.message_id, parse_mode='Markdown')
+                        time.sleep(0.75)  # Adjust the animation speed as needed
+                
+                self.is_generating = True
+                threading.Thread(target=animate_progress).start()
                 
                 response = self.model.generate_codebase(context)
+                
+                self.is_generating = False
                 
                 tmp = get_temp_dir()
                 
@@ -56,3 +70,6 @@ class CodebaseArchitectBot(TeleBot):
                 # Clean up the build and zip file
                 builder.clean_up()
                 os.remove(zip_path)
+                
+                # Send confirmation message
+                self.edit_message_text(f"Generating codebase with your provided context (Est. {token_count} tokens).\n\n*✅ Done!*", chat_id=progress_message.chat.id, message_id=progress_message.message_id, parse_mode='Markdown')

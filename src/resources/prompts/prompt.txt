@@ -16,8 +16,7 @@ An example of how the JSON object should look is as follows (ALL KEYS ARE MANDAT
     "main.py": 'print("Hello, World!")',
     "requirements.txt": "flask==1.1.2\npython-dotenv==0.15.0",
     "README.txt": "To setup the project, run the following commands:\ncd my_project\npip install -r requirements.txt",
-  }},
-  "summary": "'hello-world' a basic Python project that prints 'Hello, World!' to the console. It includes a main.py Python file, and a requirements.txt file specifying the project dependencies. The README.txt file provides instructions on how use the software."
+  }}
 }}
 
 If there is any reason that you believe the codebase cannot be generated, you should return an error like so:
