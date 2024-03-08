@@ -207,9 +207,7 @@ If you don't have any ideas, see the [open issues](https://github.com/hschickdev
 <!-- LICENSE -->
 ## License
 
-Distributed under the GPLv3.0 License. See `LICENSE.txt` for more information.
-
-In summary, the GNU General Public License v3 (GPLv3) is a free software license that allows you to use, modify, and distribute the software for personal and commercial use. 
+Distributed under [GPLv3.0](./LICENSE), a free software license that allows you to use, modify, and distribute the software for personal and commercial use. 
 
 However, any changes you make must also be open-sourced under the same license. This ensures that derivative work remains free and open, promoting collaboration and transparency. Importantly, if you distribute the software or any modifications, you must make the source code available and clearly state any changes you've made.
 
