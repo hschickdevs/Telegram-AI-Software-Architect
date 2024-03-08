@@ -27,7 +27,7 @@
     <a href="#about-the-project"><strong>Learn More »</strong></a>
     <br />
     <br />
-    <a href="https://t.me/AITelegramTranslate_bot">Try Demo</a>
+    <a href="https://t.me/CodebaseArchitect_bot">Try Demo</a>
     ·
     <a href="#deployment">Deployment</a>
     ·
