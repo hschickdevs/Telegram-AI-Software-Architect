@@ -12,7 +12,7 @@ from .logger import logger
 
 
 class CodebaseModel:
-    def __init__(self, api_key: str, model: str, model_code: str):
+    def __init__(self, api_key: str, model: str, model_code: str = None):
         """
         Initializes the translator object.
         
@@ -21,10 +21,11 @@ class CodebaseModel:
             model (str): claude or openai are the current available models
             model_code (str): The Claude or OpenAI model to use.
         """
-        assert model in ["claude", "openai"], f"'{model}' model not supported."
+        models = {"claude": "claude-3-opus-20240229", "openai": "gpt-4-0125-preview"}  # contains the available models and the default model codes
+        assert model in models.keys(), f"'{model}' model not supported."
         
         self.model = model
-        self.model_code = model_code
+        self.model_code = model_code if model_code else models[model]
         
         # Create model connectors
         self.openai = OpenAI(api_key=api_key) if model == "openai" else None

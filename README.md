@@ -91,7 +91,7 @@ Just simply prompt the bot with a detailed description of the software you want 
 <!-- DEPLOYMENT -->
 ## Deployment
 
-To get your own local instance of the Telegram AI Codebase Architect bot up and running, follow these simple steps:
+To get your own local instance of the `Telegram-AI-Software-Architect` bot up and running, follow these simple steps:
 
 ### Prerequisites
 
@@ -117,40 +117,45 @@ Make sure that you have saved your model APIKEY, model code, and bot token in a 
 
 Before continuing, ensure that you have docker installed on your system. If you do not, you can download it [**🔗 here**](https://www.docker.com/products/docker-desktop).
 
-_Docker container development in progress ..._
+Once you have verified your Docker installation:
 
-
-<!-- 1. Pull the Docker image from Docker Hub:
+1. Pull the Docker image from Docker Hub:
 
    ```sh
-   docker pull hschickdevs/telegram-translate-ai
+   docker pull hschickdevs/ai-software-architect:latest
    ```
 
 2. Run the Docker image:
 
-    You will need to specify your OpenAI API key and Telegram bot token as environment variables. Additionally, you can specify the GPT model to use (e.g., `gpt-3.5-turbo` or `gpt-4`, or any desired model [listed on their website](https://platform.openai.com/docs/models/continuous-model-upgrades)). You can leave the `MODEL` environment variable empty to use the default model (3.5 turbo).
+    In specifying the environment variables in the run command, as seen adjacent to `-e`, you can use the following reference:
+    
+    - `API_KEY`: Your API KEY for the model that you chose (OpenAI or Claude)
+    - `BOT_TOKEN`: Your Telegram bot token received from BotFather.
+    - `MODEL`: The model that you are using, currently only `openai` or `claude`
+    - `MODEL_CODE (optional)`: The code for the model that you want to use, see _Prerequisites_ for more information. If this is left blank, it will use the default model for your model (`gpt-4-0125-preview` for `openai`, and `claude-3-opus-20240229` for `claude`.)
 
     ```sh
-    docker run -d --name telegram-translate-ai \
-      -e OPENAI_TOKEN=<YOUR_APIKEY> \
+    docker run -d --name ai-software-architect \
+      -e API_KEY=<YOUR_APIKEY> \
       -e BOT_TOKEN=<YOUR_TELEGRAM_BOT_TOKEN> \
-      -e MODEL=<GPT-MODEL> \
-      hschickdevs/telegram-translate-ai
+      -e MODEL=<LLM-MODEL> \
+      -e MODEL_CODE=<LLM_MODEL_CODE> \
+      hschickdevs/ai-software-architect
     ```
 
   3. If you want to see the logs, you can use the following command:
 
       ```sh
-      docker logs -f telegram-translate-ai
+      docker logs -f ai-software-architect
       ```
 
       You can also attach to the container to see the logs in real-time:
 
       ```sh
-      docker attach telegram-translate-ai
+      docker attach ai-software-architect
       ```
 
-      If you don't see any errors, the bot should now be running! Head to your bot on Telegram and test it out. -->
+      If you don't see any errors, the bot should now be running! Head to your bot on Telegram and test it out.
 
 <!-- USAGE EXAMPLES -->
 ## Bot Commands
