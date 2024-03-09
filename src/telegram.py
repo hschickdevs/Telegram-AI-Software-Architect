@@ -10,6 +10,23 @@ from .builder import CodebaseBuilder
 from .config import WHITELIST, LIMIT
 
 
+def limit_user(func):
+    @wraps(func)
+    def wrapper(self, message):
+        user_id = message.from_user.id
+        if user_id not in self.user_counts:
+            self.user_counts[user_id] = {'ask_count': 0, 'generate_count': 0}
+        if user_id not in WHITELIST:
+            if func.__name__ == 'on_ask' and self.user_counts[user_id]['ask_count'] >= LIMIT:
+                self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/ask` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
+                return
+            elif func.__name__ == 'on_generate' and self.user_counts[user_id]['generate_count'] >= LIMIT:
+                self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/generate` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
+                return
+        return func(self, message)
+    return wrapper
+
+
 class CodebaseArchitectBot(TeleBot):
     def __init__(self, bot_token: str, model: CodebaseModel):
         super().__init__(token=bot_token)
@@ -33,7 +50,7 @@ class CodebaseArchitectBot(TeleBot):
         def on_ask(message):
             user_id = message.from_user.id
             if user_id not in self.user_counts:
-                self.user_counts[user_id] = {'ask_count': 0}
+                self.user_counts[user_id] = {'ask_count': 0, 'generate_count': 0}
             if user_id not in WHITELIST and self.user_counts[user_id]['ask_count'] >= LIMIT:
                 self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/ask` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
                 return
@@ -57,7 +74,7 @@ class CodebaseArchitectBot(TeleBot):
         def on_generate(message):
             user_id = message.from_user.id
             if user_id not in self.user_counts:
-                self.user_counts[user_id] = {'generate_count': 0}
+                self.user_counts[user_id] = {'ask_count': 0, 'generate_count': 0}
             if user_id not in WHITELIST and self.user_counts[user_id]['generate_count'] >= LIMIT:
                 self.reply_to(message, f"Sorry, you have exceeded your limit ({LIMIT}) for the `/generate` command. Contact support for more access using `/contact`.", parse_mode='Markdown')
                 return

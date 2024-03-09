@@ -79,7 +79,7 @@ class CodebaseModel:
         response = None
         try:
             message = self.claude.messages.create(
-                model="claude-3-opus-20240229",
+                model=self.model_code,
                 max_tokens=4096,
                 messages=[
                     {"role": "user", "content": prompt}
