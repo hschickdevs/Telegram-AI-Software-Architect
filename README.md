@@ -119,13 +119,13 @@ Before continuing, ensure that you have docker installed on your system. If you 
 
 Once you have verified your Docker installation:
 
-1. Pull the Docker image from Docker Hub:
+1. **Pull the Docker image from Docker Hub:**
 
    ```sh
    docker pull hschickdevs/ai-software-architect:latest
    ```
 
-2. Run the Docker image:
+2. **Run the Docker image:**
 
     In specifying the environment variables in the run command, as seen adjacent to `-e`, you can use the following reference:
     
@@ -143,7 +143,7 @@ Once you have verified your Docker installation:
       hschickdevs/ai-software-architect
     ```
 
-  3. If you want to see the logs, you can use the following command:
+  3. **View the logs:**
 
       ```sh
       docker logs -f ai-software-architect
