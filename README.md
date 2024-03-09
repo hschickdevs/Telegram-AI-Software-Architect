@@ -1,7 +1,7 @@
 <p align="center">
   <img src="https://img.shields.io/badge/Made%20with-Python3-yellow?style=for-the-badge" alt="Made with Python3" />
-  <a href="https://github.com/hschickdevs/Telegram-AI-Codebase-Architect/stargazers"><img src="https://img.shields.io/github/stars/hschickdevs/Telegram-AI-Codebase-Architect.svg?style=for-the-badge&color=219ED9" alt="Stargazers" /></a>
-  <a href="https://github.com/hschickdevs/Telegram-AI-Codebase-Architect/blob/main/LICENSE"><img src="https://img.shields.io/github/license/hschickdevs/Telegram-AI-Codebase-Architect.svg?style=for-the-badge&color=green" alt="GPLv3 License" /></a>
+  <a href="https://github.com/hschickdevs/Telegram-AI-Software-Architect/stargazers"><img src="https://img.shields.io/github/stars/hschickdevs/Telegram-AI-Software-Architect.svg?style=for-the-badge&color=219ED9" alt="Stargazers" /></a>
+  <a href="https://github.com/hschickdevs/Telegram-AI-Software-Architect/blob/main/LICENSE"><img src="https://img.shields.io/github/license/hschickdevs/Telegram-AI-Software-Architect.svg?style=for-the-badge&color=green" alt="GPLv3 License" /></a>
 </p>
 
 <!-- PROJECT LOGO -->
@@ -9,14 +9,14 @@
 <div align="center">
   <img src="./docs/logo_circle.png" alt="Logo" width="150" height="150">
 
-  <h3 align="center">Telegram-AI-Codebase-Architect</h3>
+  <h3 align="center">Telegram-AI-Software-Architect</h3>
 
   <p align="center">
-    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy codebases from user prompts in a matter of seconds.
+    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy software from user prompts in a matter of seconds.
     <br />
     <h4>Notable Features:</h4>
     <p>
-        <i>Single model call for codebase generation to reduce token cost</i>
+        <i>Single model call for software generation to reduce token cost</i>
     </p>
     <p>
         <i>Supports <a href="https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo">OpenAI</a> and <a href="https://www.anthropic.com/claude">Claude</a> language models</i>
@@ -27,7 +27,7 @@
     <a href="#about-the-project"><strong>Learn More »</strong></a>
     <br />
     <br />
-    <a href="https://t.me/CodebaseArchitect_bot">Try Demo</a>
+    <a href="https://t.me/SoftwareArchitect_bot">Try Demo</a>
     ·
     <a href="#deployment">Deployment</a>
     ·
@@ -37,11 +37,11 @@
   </p>
 </div>
 
-<!-- # Telegram-AI-Codebase-Architect
+<!-- # Telegram-AI-Software-Architect
 
 > 🚧 _CURRENTLY IN DEVELOPMENT ..._
 
- Telegram bot that uses AI to generate full codebases from user prompts. It provides structured, ready-to-deploy codebases, differentiating from simple code generation by offering entire architectural solutions. Prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for you and send the zipped code the Telegram chat.
+ Telegram bot that uses AI to generate full software codebases from user prompts. It provides structured, ready-to-deploy software, differentiating from simple code generation by offering entire architectural solutions. Prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for your software and send the zipped code the Telegram chat.
 
  **Notable Features**:
 
@@ -62,7 +62,7 @@
 
 This Telegram bot leverages the power of OpenAI or Claude's large language models to provide full architectured software solutions, zipped and ready to go in your convenient Telegram chat window. The output includes requirement and readme files for easy setup and usage. The bot is capable of generating codebases for a wide range of software projects, from simple command-line applications to complex web applications. 
 
-Here is an example of a codebase that was architected for another `todo-app`, given a [more detailed context](./tests/message3.txt):
+Here is an example of a codebase that was architected for another `todo-app` software, given a [more detailed context](./tests/message3.txt):
 
 ```
 todo-app/
@@ -83,7 +83,7 @@ todo-app/
         └── index.html
 ```
 
-Just simply prompt the bot with a detailed description of the software you want to build, and it will generate a full codebase for you and send the zipped code the Telegram chat.
+Just simply prompt the bot with a detailed description of the software you want to build, and it will generate and send the zipped software codebase the Telegram chat.
 
 > 💡 **Tip:** The [Claude 3 Opus](https://www.anthropic.com/news/claude-3-family) model has proven to be exceptionally more effective at generating the codebases than even the best OpenAI GPT models.
 
@@ -163,7 +163,7 @@ ___
 
 #### `/generate <context>`
 
-🛠️ Generate a codebase given the context.
+🛠️ Generate a software codebase given the context.
 
 > For the highest quality output, it is recommended to use the Claude 3 Opus model, as well as provide a detailed context for the software you want to be architected.
 

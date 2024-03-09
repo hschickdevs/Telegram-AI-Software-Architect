@@ -1,4 +1,4 @@
 help - Get information about bot commands and their usages
-generate - Prompt the bot to architect a codebase using /generate <context>
+generate - Prompt the bot to architect a software codebase using /generate <context>
 ask - Ask {model} anything
 contact - Get in touch with the developer
