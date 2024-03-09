@@ -12,14 +12,14 @@
   <h3 align="center">Telegram-AI-Software-Architect</h3>
 
   <p align="center">
-    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy software from user prompts in a matter of seconds.
+    A powerful Telegram bot that uses large language models (LLMs) to architect fully structured, ready-to-deploy software codebases from user prompts in a matter of seconds.
     <br />
     <h4>Notable Features:</h4>
     <p>
-        <i>Single model call for software generation to reduce token cost</i>
+        <i>Single model call for generation to reduce token cost</i>
     </p>
     <p>
-        <i>Supports <a href="https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo">OpenAI</a> and <a href="https://www.anthropic.com/claude">Claude</a> language models</i>
+        <i>Supports <a href="https://platform.openai.com/docs/models/gpt-4-and-gpt-4-turbo">OpenAI</a> and <a href="https://www.anthropic.com/claude">Claude</a> LLMs</i>
     </p>
     <p>
         <i>Output zip includes requirement and readme files for setup & usage</i>
