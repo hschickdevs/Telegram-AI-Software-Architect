@@ -40,7 +40,7 @@ class CodebaseArchitectBot(TeleBot):
 
         @self.message_handler(commands=['help'])
         def on_help(message):
-            self.reply_to(message, get_command_template('help').format(bot_name=self.get_me().first_name), parse_mode='Markdown')
+            self.reply_to(message, get_command_template('help').format(model=self.model.model_code), parse_mode='Markdown')
             
         @self.message_handler(commands=['contact'])
         def on_contact(message):
