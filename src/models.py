@@ -21,7 +21,7 @@ class CodebaseModel:
             model (str): claude or openai are the current available models
             model_code (str): The Claude or OpenAI model to use.
         """
-        models = {"claude": "claude-3-opus-20240229", "openai": "gpt-4-0125-preview"}  # contains the available models and the default model codes
+        models = {"claude": "claude-3-5-sonnet-20241022", "openai": "gpt-4o"}  # contains the default models used by each provider
         assert model in models.keys(), f"'{model}' model not supported."
         
         self.model = model
