@@ -21,7 +21,7 @@ If there is any reason that you believe the codebase cannot be generated, you sh
 }}
 
 Additional Conditions:
-1. You only have the capability to generate Python codebases. If the project cannot be built using Python, then you should return an error.
+1. Favor Python over other languages, but you are not restricted to Python.
 2. Please do not return the "```json```" characters in your response, just the raw text in JSON format.
 3. If a requirements.txt file is not needed as the software uses built-in libraries, you can exclude it.
 4. Please use .txt extension for README files, not .md.
